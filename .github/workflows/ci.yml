@@ -3,7 +3,7 @@ name: CI/CD Laravel + Docker
 on:
   push:
     branches:
-      - nom_prenom_burger  # Exécuter le pipeline seulement sur cette branche
+      - seck_amadou_burger
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Cloner le code depuis GitHub
-        uses: actions/checkout@v3  # Récupère le projet depuis GitHub
+        uses: actions/checkout@v3
 
       - name: Installer PHP et Composer
         uses: shivammathur/setup-php@v2
@@ -21,3 +21,9 @@ jobs:
 
       - name: Installer les dépendances Laravel
         run: composer install --no-dev --optimize-autoloader
+
+      - name: Copier le fichier .env
+        run: cp .env.example .env
+
+      - name: Generer la cle de lapplication
+        run: php artisan key:generate
